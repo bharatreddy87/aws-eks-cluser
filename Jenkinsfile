@@ -9,9 +9,9 @@ pipeline{
             when {
                 expression {
                     if (tf_version=="Terraform") {
-                        return false
-                    } else {
                         return true
+                    } else {
+                        return false
                     }
                 }
             }
@@ -27,9 +27,9 @@ pipeline{
             when {
                 expression {
                     if (aws_version=="aws-cli") {
-                        return false
-                    } else {
                         return true
+                    } else {
+                        return false
                     }
                 }
             }
