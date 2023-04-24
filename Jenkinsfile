@@ -5,13 +5,13 @@ pipeline{
         tf_version=sh(script: "terraform.exe -v | head -1 | awk {'print \$1'}", returnStdout: true).trim()
     }
     stages {
-        stage('My Stage') {
+        stage('Install AWS') {
             when {
                 expression {
                     if (aws_version=="aws-cli") {
-                        return true
-                    } else {
                         return false
+                    } else {
+                        return true
                     }
                 }
             }
