@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    env: dev
+    type: backend
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+       type: backend
+  template:
+    metadata:
+      name: nginx-deployment
+      labels:
+        env: dev
+        type: backend     
+    spec:
+      nodeSelector: 
+        size: "t3-medium-large"
+      containers:
+        - name: nginx-deploy
+          image: nginx
+          ports:
+          - containerPort: 80
+          env:
+           - name: my_var
+             value: nginx-deploy_var

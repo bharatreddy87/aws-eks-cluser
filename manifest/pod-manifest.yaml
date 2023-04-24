@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    env: dev
+    type: frontend
+spec:
+  containers:
+    - name: nginx-pod
+      image: nginx
+      ports:
+        - containerPort: 80
+      env:
+        - name: my_var
+          value: nginx-pod
+          
+      
+      

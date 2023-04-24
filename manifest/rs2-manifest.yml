@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: busybox
+  labels:
+    type: busybox-prod
+    env: prod
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      type: busybox-prod
+  template:
+    metadata:
+      name: busybox
+      labels:
+        type: busybox-prod
+        env: prod
+    spec:
+      containers:
+      - name: busybox-prod
+        image: busybox
+        command:
+        - sleep
+        - "3600"
+    

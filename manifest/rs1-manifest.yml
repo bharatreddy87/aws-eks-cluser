@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: redis-test-rs
+  labels:
+    env: test
+    type: database
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      type: redis-test-rs
+  template:
+    metadata:
+      name: redis-test-rs
+      labels:
+        env: test
+        type: redis-test-rs
+    spec:
+      containers:
+        - name: redis-test-rs
+          image: redis
+          ports:
+          - containerPort: 6379
