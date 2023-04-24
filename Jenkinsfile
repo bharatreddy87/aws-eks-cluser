@@ -5,6 +5,8 @@ pipeline{
         tf_version=sh(script: "terraform -v | head -1 | awk {'print \$1'}", returnStdout: true).trim()
     }
     stages {
+        stage('Build and Test') {
+            parallel {
         stage('Install Terraform') {
             when {
                 expression {
@@ -42,6 +44,7 @@ pipeline{
 
             }
         }
-  
+            }
+        }
     }
 }
