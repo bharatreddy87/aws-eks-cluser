@@ -45,7 +45,9 @@ pipeline{
                 }
             }
         stage('Terraform init for S3'){
-            sh 'cd private-key && terraform init'
+            steps{
+                sh 'cd private-key && terraform init'
+            }
         }
     }
        
