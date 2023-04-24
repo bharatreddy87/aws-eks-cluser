@@ -1,8 +1,8 @@
 pipeline{
     agent any
     environment{
-        aws_version=$(aws --v | awk '{print $1}' | cut -d '/' -f 1)
-        tf_version=$(terraform.exe -v | head -1 | awk {'print $1'})
+        aws_version="$(aws --v | awk '{print $1}' | cut -d '/' -f 1)"
+        tf_version="$(terraform.exe -v | head -1 | awk {'print $1'})"
     }
     stages{
         stage{
