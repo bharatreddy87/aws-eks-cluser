@@ -9,7 +9,7 @@ pipeline {
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
 	}
 	options{
-		buildDiscarder(logRotator((numToKeepStr: '2'))
+		//buildDiscarder(logRotator((numToKeepStr: '2'))
 		disableConcurrentBuilds()
 	        timeout(time: 5, unit: 'SECONDS') 
 	}
