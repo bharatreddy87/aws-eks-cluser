@@ -5,6 +5,11 @@ pipeline{
         //tf_version=sh(script: "terraform -v | head -1 | awk {'print \$1'}", returnStdout: true).trim()
     }
     stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/bharatreddy87/aws-eks-cluser.git']]])
+            }
+        }
         stage('Tool Installation') {
             parallel {
                 stage('Install Terraform') {
