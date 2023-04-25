@@ -34,12 +34,12 @@ pipeline{
             }
          stage('Init') {
             steps {
-                sh ' && cd private-key && terraform init'
+                sh 'cd private-key && terraform init'
             }
         }
         stage('Plan') {
             steps {
-                sh ' cd private-key && terraform plan'
+                sh 'cd private-key && terraform plan'
             }
         }
         stage('Apply') {
