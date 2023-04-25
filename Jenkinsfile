@@ -47,9 +47,7 @@ pipeline{
                 sh 'cd private-key && terraform apply -auto-approve'
             }
         }
-               
-            }
-        }
+        
     }
        
 }
