@@ -11,21 +11,18 @@ pipeline {
    agent  any
     stages {
         stage('checkout') {
+            stage('Checkout') {
             steps {
-                 script{
-                        dir("terraform")
-                        {
-                            git "https://github.com/bharatreddy87/aws-eks-cluser.git"
-                        }
-                    }
-                }
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/bharatreddy87/aws-eks-cluser.git']]])
+            }
+        }
             }
 
         stage('Plan') {
             steps {
-                sh 'pwd;cd terraform/private-key/ ; terraform init'
-                sh "pwd;cd terraform/private-key ; terraform plan -out tfplan"
-                sh 'pwd;cd terraform/private-key ; terraform show -no-color tfplan > tfplan.txt'
+                sh 'pwd;cd private-key ; terraform init'
+                sh "pwd;cd private-key ; terraform plan -out tfplan"
+                sh 'pwd;cd private-key ; terraform show -no-color tfplan > tfplan.txt'
             }
         }
         stage('Approval') {
@@ -37,7 +34,7 @@ pipeline {
 
            steps {
                script {
-                    def plan = readFile 'terraform/private-key/tfplan.txt'
+                    def plan = readFile 'private-key/tfplan.txt'
                     input message: "Do you want to apply the plan?",
                     parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                }
@@ -46,7 +43,7 @@ pipeline {
 
         stage('Apply') {
             steps {
-                sh "pwd;cd terraform/private-key/ ; terraform apply -input=false tfplan"
+                sh "pwd;cd private-key ; terraform apply -input=false tfplan"
             }
         }
     }
