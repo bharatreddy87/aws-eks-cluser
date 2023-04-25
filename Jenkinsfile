@@ -8,16 +8,7 @@ pipeline{
         stage('Tool Installation') {
             parallel {
                 stage('Install Terraform') {
-                    when {
-                        expression {
-                            if (tf_version=="Terraform") {
-                                return false
-                            } else {
-                                return true
-                                }
-                            }
-                        }
-                        steps {
+                      steps {
                             // some steps to execute
                             sh 'sudo yum install -y yum-utils shadow-utils'
                             sh 'sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo'
@@ -26,16 +17,7 @@ pipeline{
                             }
                 }
                 stage('Install AWS') {
-                    when {
-                        expression {
-                            if (aws_version=="aws-cli") {
-                                return false
-                            } else {
-                                return true
-                            }
-                        }
-                    }
-                    steps {
+                      steps {
                         // some steps to execute
                         sh 'sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
                         sh 'sudo unzip awscliv2.zip'
