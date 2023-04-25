@@ -14,8 +14,7 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/bharatreddy87/aws-eks-cluser.git']]])
             }
-        }
-            }
+        }           
 
         stage('Plan') {
             steps {
@@ -46,5 +45,6 @@ pipeline {
             }
         }
     }
+}
 
   
