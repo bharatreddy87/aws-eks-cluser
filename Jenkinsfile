@@ -20,9 +20,10 @@ pipeline {
 
    agent  any
     stages {
-        stage('checkout') {
+        stage('checkout') 
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/bharatreddy87/aws-eks-cluser.git']]])
+		    cleanWs()
+		    checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/bharatreddy87/aws-eks-cluser.git']]])
             }
         }           
 
