@@ -22,6 +22,7 @@ pipeline{
                             sh 'sudo yum install -y yum-utils shadow-utils'
                             sh 'sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo'
                             sh 'sudo yum -y install terraform'
+                            sh 'sudo terraform -v'
                             }
                 }
                 stage('Install AWS') {
@@ -36,10 +37,10 @@ pipeline{
                     }
                     steps {
                         // some steps to execute
-                        sh 'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
-                        sh 'unzip awscliv2.zip'
-                        sh './aws/install --update'
-                        sh 'aws --version'
+                        sh 'sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
+                        sh 'sudo unzip awscliv2.zip'
+                        sh 'sudo ./aws/install --update'
+                        sh 'sudo aws --version'
                         }
                     }
                 }
