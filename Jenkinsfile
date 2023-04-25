@@ -10,6 +10,7 @@ pipeline{
                 stage('Install Terraform') {
                       steps {
                             // some steps to execute
+                            sh 'git clean -fdx'
                             sh 'sudo yum install -y yum-utils shadow-utils'
                             sh 'sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo'
                             sh 'sudo yum -y install terraform'
