@@ -32,25 +32,21 @@ pipeline{
                     }
                 }
             }
-        stage('Terraform init for S3'){
-            steps{
-                sh 'cd private-key && terraform init'
+         stage('Init') {
+            steps {
+                sh ' && cd private-key && terraform init'
             }
         }
-        stage('Terraform validate for S3'){
-            steps{
-                sh 'cd private-key && terraform validate'
+        stage('Plan') {
+            steps {
+                sh ' cd private-key && terraform plan'
             }
         }
-        stage('Terraform Plan for S3'){
-            steps{
-                sh 'cd private-key && terraform plan'
-                
+        stage('Apply') {
+            steps {
+                sh 'cd private-key && terraform apply -auto-approve'
             }
         }
-        stage('Terraform apply for S3'){
-            steps{
-               sh 'cd private-key && terraform apply -auto-approve'
                
             }
         }
