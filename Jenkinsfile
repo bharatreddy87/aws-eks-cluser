@@ -39,16 +39,14 @@ pipeline{
         }
         stage('Terraform Plan for S3'){
             steps{
-                withAWS(credentials: '9d606f21-8431-4bea-a32f-31287fcc455b', region: 'us-east-1') {
-                    sh 'cd private-key && terraform plan'
-                }
+                sh 'cd private-key && terraform plan'
+                
             }
         }
         stage('Terraform apply for S3'){
             steps{
-                withAWS(credentials: '9d606f21-8431-4bea-a32f-31287fcc455b', region: 'us-east-1') {
-                    sh 'cd private-key && terraform apply -auto-approve'
-                }
+               sh 'cd private-key && terraform apply -auto-approve'
+               
             }
         }
     }
