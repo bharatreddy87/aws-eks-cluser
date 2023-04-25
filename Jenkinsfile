@@ -1,34 +1,54 @@
-pipeline{
-    agent any
-    environment{
-        aws_version=sh(script: "aws --v | awk '{print \$1}' | cut -d '/' -f 1", returnStdout: true).trim()
-        //tf_version=sh(script: "terraform -v | head -1 | awk {'print \$1'}", returnStdout: true).trim()
-    }
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/bharatreddy87/aws-eks-cluser.git']]])
-            }
-        }
+pipeline {
 
-         stage('Init') {
+    parameters {
+        booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
+    } 
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+    }
+
+   agent  any
+    stages {
+        stage('checkout') {
             steps {
-                sh 'cd private-key && terraform init'
+                 script{
+                        dir("terraform")
+                        {
+                            git "https://github.com/bharatreddy87/aws-eks-cluser.git"
+                        }
+                    }
+                }
             }
-        }
+
         stage('Plan') {
             steps {
-                sh 'cd private-key && terraform plan'
+                sh 'pwd;cd terraform/private-key/ ; terraform init'
+                sh "pwd;cd terraform/private-key ; terraform plan -out tfplan"
+                sh 'pwd;cd terraform/private-key ; terraform show -no-color tfplan > tfplan.txt'
             }
         }
+        stage('Approval') {
+           when {
+               not {
+                   equals expected: true, actual: params.autoApprove
+               }
+           }
+
+           steps {
+               script {
+                    def plan = readFile 'terraform/private-key/tfplan.txt'
+                    input message: "Do you want to apply the plan?",
+                    parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+               }
+           }
+       }
+
         stage('Apply') {
             steps {
-                sh 'cd private-key && terraform apply -auto-approve'
+                sh "pwd;cd terraform/private-key/ ; terraform apply -input=false tfplan"
             }
         }
-               
     }
-}
-        
-    
-       
+
+  }
