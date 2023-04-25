@@ -11,7 +11,7 @@ pipeline {
 	options{
 		//buildDiscarder(logRotator((numToKeepStr: '2'))
 		disableConcurrentBuilds()
-	        timeout(time: 5, unit: 'SECONDS') 
+	        timeout(time: 200, unit: 'SECONDS') 
 	}
     environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
