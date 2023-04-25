@@ -1,8 +1,18 @@
 pipeline {
 
-    parameters {
+    parameters{
+		//string(name:'Deploy_Env', defaultValue: 'Production', description:'Production Enveronment')
+		//booleanParam(name:'PROD', defaultValue: true, description: 'prod env')
+		//choice(name:'branches', choices:['main','stage','qa','dev'], description:'need to selete the deployable branch')
+		//file(name:'codefiles', description: 'production files')
+		//password(name:'prodpasswd', defaultValue:'Hanuman@3', description:'password for prod login')
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
-    } 
+	}
+	options{
+		buildDiscarder(logRotator((numToKeepStr: '2'))
+		disableConcurrentBuilds()
+        timeout(time: 5, unit: 'SECONDS') 
+	}
     environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
