@@ -1,11 +1,11 @@
 provider "aws" {
-  access_key = "AKIA2FTTSXCQGBFTFZ4A"
-  secret_key = "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"
+  access_key = "AKIA3IEBEKSRQUT6NG74"
+  secret_key = "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"
   region     = "us-east-1"
 }
 
 resource "aws_s3_bucket" "terraform-on-aws-eks-bsbpr28" {
-  bucket = "terraform-on-aws-eks-bsbpr28"
+  bucket = "terraform-on-aws-eks-bsbpr288"
   versioning {
     enabled = true
   }
