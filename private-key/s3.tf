@@ -5,7 +5,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "terraform-on-aws-eks-bsbpr28" {
-  bucket = "terraform-on-aws-eks-bsbpr288"
+  bucket = "terraform-on-aws-eks-bsbpr2811"
   versioning {
     enabled = true
   }
