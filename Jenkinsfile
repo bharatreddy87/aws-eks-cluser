@@ -34,7 +34,9 @@ pipeline{
         }
         stage('Terraform validate for S3'){
             steps{
+                withAWS(credentials: '9d606f21-8431-4bea-a32f-31287fcc455b', region: 'us-east-1') {
                 sh 'cd private-key && terraform validate'
+                }
             }
         }
         stage('Terraform Plan for S3'){
