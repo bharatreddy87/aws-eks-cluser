@@ -1,18 +1,8 @@
 pipeline {
 
-    parameters{
-		//string(name:'Deploy_Env', defaultValue: 'Production', description:'Production Enveronment')
-		//booleanParam(name:'PROD', defaultValue: true, description: 'prod env')
-		//choice(name:'branches', choices:['main','stage','qa','dev'], description:'need to selete the deployable branch')
-		//file(name:'codefiles', description: 'production files')
-		//password(name:'prodpasswd', defaultValue:'Hanuman@3', description:'password for prod login')
+    parameters {
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
-	}
-	options{
-		//buildDiscarder(logRotator((numToKeepStr: '2'))
-		disableConcurrentBuilds()
-	        timeout(time: 200, unit: 'SECONDS') 
-	}
+    } 
     environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
@@ -20,10 +10,9 @@ pipeline {
 
    agent  any
     stages {
-        stage('checkout') 
+        stage('checkout') {
             steps {
-		    cleanWs()
-		    checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/bharatreddy87/aws-eks-cluser.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/bharatreddy87/aws-eks-cluser.git']]])
             }
         }           
 
