@@ -7,8 +7,8 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "dev/app1k8s/terraform.tfstate"
-    key = "dev/app1k8s/terraform.tfstate"
+    bucket = "terraform-on-aws-eks-bsbpr28"
+    key = "dev/eks-cluster/terraform.tfstate"
     region = "us-east-1"  
 
     dynamodb_table = "terraform-locks"  
