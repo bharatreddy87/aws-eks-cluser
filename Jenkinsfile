@@ -41,7 +41,9 @@ pipeline {
 
         stage('Apply') {
             steps {
+                withAWS(credentials: 'jenkins-test-user', region: 'us-east-1') {
                 sh "pwd;cd private-key ; terraform apply -input=false tfplan"
+                }
             }
         }
 
@@ -67,9 +69,11 @@ pipeline {
                }
            }
        }
-       stage('EKS-Apply') {
+       stage('EKS-Cluster-Apply') {
             steps {
-                sh "pwd; terraform apply -input=false tfplan"
+                withAWS(credentials: 'jenkins-test-user', region: 'us-east-1') {
+                sh "pwd;cd private-key ; terraform apply -input=false tfplan"
+                }
             }
         }
 
