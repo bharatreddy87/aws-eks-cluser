@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "terraform_locks" {
-  name           = "terraform-locks87"
+  name           = "terraform-remote-state-file-bsbpr28"
   billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "LockID"
 
